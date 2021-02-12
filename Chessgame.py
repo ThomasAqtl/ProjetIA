@@ -2,6 +2,7 @@ import chess
 from Player import *
 from IA import *
 
+    
 class Chessgame:
 
     def __init__(self):
@@ -19,9 +20,11 @@ class Chessgame:
             print(beg,'->', end, ':')
             self.board.push(self.game.Move(start_case, end_case))
             self.print()
+            return("done")
             # self.board.pop()
         else:
             print("This move is not allowed !")
+            return("fail")
 
     def print(self):
         print(self.board)

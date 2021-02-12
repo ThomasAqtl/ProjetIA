@@ -120,6 +120,26 @@ class ChessConsole(cmd.Cmd):
                         self.Game.print()
                         self.ia1.turn = not self.ia1.turn
                         self.player.turn = not self.player.turn
+            elif self.ia2 != None:
+                self.ia2.evaluate(self.Game.board)
+                self.ia1.evaluate(self.Game.board)
+                
+                if self.ia1.turn:
+                    ia = self.ia1
+                    n_ia = 1
+                else:
+                    ia = self.ia2
+                    n_ia = 2
+                move = ia.pickMove(self.Game.board)
+                if (move in self.Game.board.legal_moves):
+                    movestr = str(move)
+                    beg = movestr[0:2] 
+                    end = movestr[2:4]
+                    print("L'IA ",n_ia," choisit le coup :",beg,'->', end, ':')
+                    self.Game.board.push(move)
+                    self.Game.print()
+                    self.ia1.turn = not self.ia1.turn
+                    self.ia2.turn = not self.ia2.turn
                     
                 
                 

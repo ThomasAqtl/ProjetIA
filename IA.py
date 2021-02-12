@@ -1,7 +1,7 @@
 
 from Player import *
 from Chessgame import *
-
+import random
 
 class IA(Player):
 
@@ -10,7 +10,7 @@ class IA(Player):
         
     def pickMove(self, board):
         legal_moves = list(board.legal_moves)
-        return legal_moves[0]
+        return(random.choice(legal_moves))
         
 
     def evaluate(self, board):

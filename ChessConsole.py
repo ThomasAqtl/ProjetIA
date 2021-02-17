@@ -23,7 +23,7 @@ class ChessConsole(cmd.Cmd):
         self.intro = intro1+intro2+intro3
         self.Game = None
 
-        if mode == 'pvIA':
+        if mode == 'HvsIA':
             self.player = Player('Player 1')
             self.player.turn = True
 
@@ -69,8 +69,6 @@ class ChessConsole(cmd.Cmd):
                     if res == "done":
                         self.player.turn = not self.player.turn
                         self.ia1.turn = not self.ia1.turn
-                        
-                    
                 else:
                     print('It is not your turn.')
                  

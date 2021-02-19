@@ -2,6 +2,7 @@ import os
 from ChessConsole import *
 #import MorpionConsole
 
+
 if __name__ == "__main__":
     
     # ========================== GAME CHOICE ==========================
@@ -38,11 +39,11 @@ if __name__ == "__main__":
         elif mode_choice == '2':
             console = ChessConsole('IAvsIA')
     elif chosen_game == 'tic-tac-toe':
-        pass
-        #if mode_choice == '1':
-            #console = MorpionConsole('HvsIA')
-        #elif mode_choice == '2':
-            #console = MorpionConsole('IAvsIA')
+        if mode_choice == '1':
+            console = MorpionConsole('HvsIA')
+        elif mode_choice == '2':
+            console = MorpionConsole('IAvsIA')
+        
 
     # ================== LAUNCH CHOSEN GAME CONSOLE ===================
     os.system('clear') #clear terminal

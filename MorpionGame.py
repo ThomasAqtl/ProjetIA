@@ -12,29 +12,44 @@ from more_itertools import locate
 
 class MorpionGame:
     
-    # Board dimension = 3 A MODIFIER
-    # dim = 3
+    NUM_SQUARES = 9
+    EMPTY = ' '
     
-    def __init__(self,player : str):
-        self.board = [None, None, None, None, None, None, None,None,None]
-        self.player = player #  X or O
-         
-         
-         
-#def newGameBoard(self):
-    # morpionBoard = [None] * dim
-    #morpionBoard = [None]
+    def __init__(self):
+        #self.board = [self.board.append(EMPTY) for square in range(NUM_SQUARES)]
+        self.board = self.new_board()
+        self.win_conditions = ( (0, 1, 2),
+                               (3, 4, 5), 
+                               (6, 7, 8),
+                               (0, 3, 6),
+                               (1, 4, 7),
+                               (2, 5, 8),
+                               (0, 4, 8), 
+                               (2, 4, 6) )
+#         self.player = player #  X or O
         
+    def new_board(self):
+        """Create new board."""
+        board = []
+        for square in range(self.NUM_SQUARES):
+            board.append(self.EMPTY)
+        return board
+
+#     def print(self):
+#         return(print(self.board))
+
+#     def display_board(self):
     
-    def displayBoard(self):
-        print(self.board[0],"|",self.board[1],"|",self.board[2])
-        print("---------")
-        print(self.board[3],"|",self.board[4],"|",self.board[5])
-        print("---------")
-        print(self.board[6],"|",self.board[7],self.board[8])
+    def print(self):
+        """Display the board on screen."""
+        print("\n\t",self.board[0],"|",self.board[1],"|",self.board[2])
+        print("\n\t-----------")
+        print("\n\t",self.board[3],"|",self.board[4],"|",self.board[5])
+        print("\n\t-----------")
+        print("\n\t",self.board[6],"|",self.board[7],"|",self.board[8], "\n")
     
     
-    def displayChoices():
+    def display_Choices():
         print ("-------------")
         print ("-------------")
         print ("  0 | 1 | 2")
@@ -45,39 +60,64 @@ class MorpionGame:
         print ("-------------")
         print ("-------------")
         
-    
-    # Function emptySpots returns a list of indexes referring to all empty spots available on the board  
-    def emptySpots(self):
-        return list(locate(self.board,lambda s: s == None))
-        #emptyIndex = list(locate(morpionBoard,lambda s: s == None))
-        #print(emptyIndex)
+     
+    def empty_spots(self):
+        """Create a list of empty/legal spots moves."""
+        return list(locate(self.board,lambda s: s == self.EMPTY))
         
         
     
-    def move(self, moveChoice:int):
-        availableSpots = self.emptySpots(self)
-        if (moveChoice in availableSpots):
-            # need attribute that says wich player is playing so we can put it in the list
-            self.board[moveChoice] = game.player
-            # why ajouter allowed
+    def move(self, player, moveChoice:int):
+        """Checks if the move choice is legal and returns True or False. If it's true the board is modified."""
+        availableSpots = self.empty_spots()
+        
+        if moveChoice in availableSpots:
+            
+            self.board[moveChoice] = player.sign
             allowed = True
+            
         else:
             print("This move is not allowed !")
             allowed = False
+
         return allowed
     
+    
+    
+    def check_win(self,player):
+        """Checks if the player (self.player) is the winner."""
+        """ check if the player won """
+        bool_ = False
+      
+        for condition in self.win_conditions:
+            if self.board[condition[0]] == self.board[condition[1]] == self.board[condition[2]] == player.sign:
+                bool_ = True
+                
+                return(True)
+                #print("PLAYER ",self.player,"WINS")
+        return(bool_)
+    
+    def is_game_over(self):
         
+        if ' ' in self.board:
+            return(False)
+        else:
+            return(True)
+        
+    
+"""        
 
 print("Initial board :")
-morpionBoard = [None, 'X', None, None, 'O', 'X', None,'O',None]
-player = 'X'
-game = MorpionGame
-game.board = morpionBoard
-game.player = 'X'
-MorpionGame.displayBoard(game)
-#MorpionGame.displaychoices()
-if (MorpionGame.move(game,1)):
-    print ("\n\n")
-    print("Board after a move :\n")
-    MorpionGame.displayBoard(game)
-#displaychoices()
+#morpionBoard = [None, 'X', None, None, 'O', 'X', None,'O',None]
+
+game = MorpionGame()
+print(game.player)
+print(game.board)
+game.board[1]=game.player
+print(game.board)
+available = game.empty_spots()
+print(available)
+choix = 4
+print(game.move(choix))
+game.display_board()
+"""

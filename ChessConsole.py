@@ -1,9 +1,7 @@
 import cmd
-# import os
-# import sys
+
 from Chessgame import *
-# if "Chessgame" in sys.modules:
-#     del(sys.modules["Chessgame"])
+
 intro1 = 'Type <help> to list available commands.\n'
 intro2 = 'Type <help><command> to see details about given command.\n'
 intro3 = 'Type <start> to begin a game.\n'
@@ -30,7 +28,7 @@ class ChessConsole(cmd.Cmd):
             self.ia1 = IA('IA1')
             self.ia1.turn = False
 
-        elif mode == 'IAvIA':
+        elif mode == 'IAvsIA':
             self.ia1 = IA('IA1')
             self.ia1.turn = True
 
@@ -60,15 +58,17 @@ class ChessConsole(cmd.Cmd):
         else:
             if self.player != None:
                 if self.player.turn == True:
+                    
                     try:
                         res = self.Game.move(arg)
-                        #self.player.turn = not self.player.turn
+                        
                     except:
                         res = "fail"
                         print('Your input is incorrect.')
                     if res == "done":
-                        self.player.turn = not self.player.turn
                         self.ia1.turn = not self.ia1.turn
+                        self.player.turn = not self.player.turn
+
                 else:
                     print('It is not your turn.')
                  
@@ -77,6 +77,7 @@ class ChessConsole(cmd.Cmd):
     # checks if game is ended
     def postcmd(self, line, stop):
         if self.Game != None:
+           
             if self.Game.board.is_game_over():
                 if self.Game.board.is_insufficient_material():
                     print('Game over : draw by insufficient material.')

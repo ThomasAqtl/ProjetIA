@@ -144,7 +144,7 @@ class MorpionConsole(cmd.Cmd):
                             print('IA2 won !')
                         elif self.ia2.turn:
                             print('IA1 won !')
-            elif self.Game.is_game_over():
+            elif is_game_over(self.Game.board):
                 print('Game over : no winner')
                     
             elif self.player != None:

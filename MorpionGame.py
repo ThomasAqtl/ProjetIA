@@ -97,14 +97,30 @@ class MorpionGame:
                 #print("PLAYER ",self.player,"WINS")
         return(bool_)
     
-    def is_game_over(self):
-        
-        if ' ' in self.board:
-            return(False)
-        else:
+
+
+def is_game_over(board):
+#         bool_ = False
+    win_conditions = ( (0, 1, 2),
+                           (3, 4, 5), 
+                           (6, 7, 8),
+                           (0, 3, 6),
+                           (1, 4, 7),
+                           (2, 5, 8),
+                           (0, 4, 8), 
+                           (2, 4, 6) )
+    for condition in win_conditions:
+        if board[condition[0]] == board[condition[1]] == board[condition[2]] != ' ':
+#                 bool_ = True               
             return(True)
-        
-    
+            #print("PLAYER ",self.player,"WINS")
+
+    if ' ' in board:
+        return(False)
+    else:
+        return(True)
+
+
 """        
 
 print("Initial board :")

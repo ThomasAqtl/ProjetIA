@@ -1,4 +1,5 @@
 import chess
+import chess.engine
 from Player import *
 from IA import *
 
@@ -6,8 +7,8 @@ from IA import *
 class Chessgame:
 
     def __init__(self):
-        self.board = chess.Board()
         self.game = chess
+        self.board = chess.Board()
 
     #  move = 'e2e4', beg = e2, end = e4
     def move(self, move: str):
@@ -20,6 +21,7 @@ class Chessgame:
             print(beg,'->', end, ':')
             self.board.push(self.game.Move(start_case, end_case))
             self.print()
+            #print(self.info["score"].relative)
             return("done")
             # self.board.pop()
         else:

@@ -1,6 +1,6 @@
 import os
 from ChessConsole import *
-#import MorpionConsole
+from MorpionConsole import *
 
 
 if __name__ == "__main__":

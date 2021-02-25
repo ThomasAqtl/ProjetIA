@@ -104,8 +104,8 @@ class ChessConsole(cmd.Cmd):
             
             # score refresh
             if self.player != None:
-                self.player.evaluate(self.Game.board)
-                self.ia1.evaluate(self.Game.board)
+                #self.player.evaluate(self.Game.board)
+                #self.ia1.evaluate(self.Game.board)
                 
                 if self.ia1.turn :
                     
@@ -117,6 +117,7 @@ class ChessConsole(cmd.Cmd):
                         print("L'IA choisit le coup :",beg,'->', end, ':')
                         self.Game.board.push(move)
                         self.Game.print()
+                        #print(self.Game.info["score"].relative)
                         self.ia1.turn = not self.ia1.turn
                         self.player.turn = not self.player.turn
             elif self.ia2 != None:
@@ -139,6 +140,3 @@ class ChessConsole(cmd.Cmd):
                     self.Game.print()
                     self.ia1.turn = not self.ia1.turn
                     self.ia2.turn = not self.ia2.turn
-                    
-                
-                

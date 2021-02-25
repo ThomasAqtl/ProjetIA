@@ -120,9 +120,24 @@ class ChessConsole(cmd.Cmd):
                         #print(self.Game.info["score"].relative)
                         self.ia1.turn = not self.ia1.turn
                         self.player.turn = not self.player.turn
+                        
+                        if self.Game.board.is_game_over():
+                            if self.Game.board.is_insufficient_material():
+                                print('Game over : draw by insufficient material.')
+                                return True
+                            if self.Game.board.is_stalemate():
+                                print('Game over : draw by stalemate.')
+                                return True
+                            
+                            if self.Game.board.is_checkmate():                                
+                                print('Game over : defeat by checkmate')
+                                return True
+                               
+                            if self.Game.board.is_repetition():
+                                print('Game over : draw by repetition')
+                                return True
             elif self.ia2 != None:
-                self.ia2.evaluate(self.Game.board)
-                self.ia1.evaluate(self.Game.board)
+               
                 
                 if self.ia1.turn:
                     ia = self.ia1
@@ -140,3 +155,18 @@ class ChessConsole(cmd.Cmd):
                     self.Game.print()
                     self.ia1.turn = not self.ia1.turn
                     self.ia2.turn = not self.ia2.turn
+                    if self.Game.board.is_game_over():
+                        if self.Game.board.is_insufficient_material():
+                            print('Game over : draw by insufficient material.')
+                            return True
+                        if self.Game.board.is_stalemate():
+                            print('Game over : draw by stalemate.')
+                            return True
+                        if self.Game.board.is_checkmate():
+                            if self.ia1.turn:
+                                print('IA2 won !')
+                            elif self.ia2.turn:
+                                print('IA1 won !')
+                        if self.Game.board.is_repetition():
+                            print('Game over : draw by repetition')
+                            return True

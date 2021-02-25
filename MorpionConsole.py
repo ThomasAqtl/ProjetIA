@@ -141,15 +141,17 @@ class MorpionConsole(cmd.Cmd):
                 else:
                     if self.ia1 != None and self.ia2 != None:
                         if self.ia1.turn:
-                            print('IA2 won !')
+                            print('IA ', self.ia2.sign,' won !')
+                            return(True)
                         elif self.ia2.turn:
-                            print('IA1 won !')
+                            print('IA ', self.ia1.sign,' won !')
+                            return True
             elif is_game_over(self.Game.board):
                 print('Game over : no winner')
+                return True
                     
             elif self.player != None:
-                self.player.evaluate(self.Game.board)
-                self.ia1.evaluate(self.Game.board)
+                
 
                 if self.ia1.turn :
 
@@ -160,10 +162,17 @@ class MorpionConsole(cmd.Cmd):
                     self.Game.print()
                     self.ia1.turn = not self.ia1.turn
                     self.player.turn = not self.player.turn
+                
+                    if self.Game.check_win(self.ia1):
+                        print("You lost :'(")
+                        return True
+                    elif is_game_over(self.Game.board):
+                        print('Game over : no winner')
+                        return True
+                    
 
             elif self.ia2 != None:
-                self.ia2.evaluate(self.Game.board)
-                self.ia1.evaluate(self.Game.board)
+                
 
                 if self.ia1.turn:
                     ia = self.ia1
@@ -179,6 +188,14 @@ class MorpionConsole(cmd.Cmd):
                 self.Game.print()
                 self.ia1.turn = not self.ia1.turn
                 self.ia2.turn = not self.ia2.turn
+                if self.Game.check_win(ia):
+                    print("IA ",ia.sign," won!")
+                    return True
+                elif is_game_over(self.Game.board):
+                    print('Game over : no winner')
+                    return True
+                    
+                    
 
 
 
